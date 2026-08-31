@@ -1,0 +1,36 @@
+## Compilación y binarios (.NET)
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Archivos de usuario y configuración local de Visual Studio / VS Code
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+## Archivos de publicación y temporales
+*.Publish.xml
+*.pubxml
+publish/
+
+## Secretos y configuraciones locales
+appsettings.Production.json
+appsettings.*.local.json
+secrets.json
+
+## Base de datos local / Entity Framework logs
+*.db
+*.db-shm
+*.db-wal
+
+## Sistema operativo
+.DS_Store
+Thumbs.db
