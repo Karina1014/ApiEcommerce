@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 public class  Category
 {
     [Key]
-    public int IdCategorty {get;set;}
+    public int IdCategory {get;set;}
     [Required]
     public string Name {get; set;} = string.Empty;
     [Required]
