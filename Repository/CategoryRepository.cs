@@ -39,10 +39,10 @@ public class CategoryRepository : ICategoryRepository
         return _db.Categories.OrderBy(c =>c.Name).ToList();
     }
 
-    public Category GetCategory(int id)
+    public Category? GetCategory(int id)
     {
 // ✅ Los datos desde el Models Category
-return _db.Categories.FirstOrDefault(c => c.IdCategory == id) ?? throw new InvalidOperationException($"La categoria con el id {id} no existe");    }
+return _db.Categories.FirstOrDefault(c => c.IdCategory == id);    }
 
     public bool Save()
     {
