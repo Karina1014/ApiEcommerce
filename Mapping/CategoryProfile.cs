@@ -1,6 +1,7 @@
 using System;
 using ApiEcommerce.Models.Dtos;
 using AutoMapper;
+using ApiEcommerce.Models;
 
 namespace ApiEcommerce.Mapping;
 
