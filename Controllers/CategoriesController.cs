@@ -33,7 +33,7 @@ namespace ApiEcommerce.Controllers
             return Ok(categoriesDto);
         }
 
-        [HttpGet("{IdCategory:int}",Name = "GetCategories")]
+        [HttpGet("{IdCategory:int}",Name = "GetCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -47,6 +47,32 @@ namespace ApiEcommerce.Controllers
             } 
             var CategoryDto = _mapper.Map<CategoryDto>(category);
             return Ok(CategoryDto);
+        }
+
+        //Metodo post
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult CreateCategory([FromBody]CreateCategoryDto createCategoryDto)
+        {
+            if (createCategoryDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+            if (_categoryRepository.CategoryExists(createCategoryDto.Name))
+            {
+                ModelState.AddModelError("CustomError","La Categoria ya EXISTE");
+                return BadRequest(ModelState);
+            }
+            var category = _mapper.Map<Category>(createCategoryDto);
+            if(!_categoryRepository.CreateCategory(category))
+            {
+                ModelState.AddModelError("CustomError",$"Algo Salio mal al guardar el registro{category.Name}");
+                return StatusCode(500,ModelState);
+            }
+            return CreatedAtRoute("GetCategory", new {id=category.IdCategory},category);
         }
     }
 
