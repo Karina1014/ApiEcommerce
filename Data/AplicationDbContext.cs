@@ -1,9 +1,6 @@
-using Microsoft.EntityFrameworkCore; //La base de datos es
-public class AplicationDbContext: DbContext //DbContext hereda de EntityFrameworkCore de la db, clase base 
-{
-    //creamos el constructor
-                                //pones opciones del contexto
-                                                 //tipo 
+using ApiEcommerce.Models;
+using Microsoft.EntityFrameworkCore; 
+public class AplicationDbContext: DbContext {
     public  AplicationDbContext (DbContextOptions<AplicationDbContext> options): base(options)
     {
         
@@ -13,4 +10,5 @@ public class AplicationDbContext: DbContext //DbContext hereda de EntityFramewor
                 //tabl
                             //Va por convencion y en plural es la migracios
     public DbSet <Category> Categories { get; set; }
+    public DbSet <Product> Products {get; set;}
 }

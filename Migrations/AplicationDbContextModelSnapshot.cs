@@ -21,6 +21,52 @@ namespace ApiEcommerce.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ApiEcommerce.Models.Product", b =>
+                {
+                    b.Property<int>("IdProduct")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProduct"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdCategory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDte")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IdProduct");
+
+                    b.HasIndex("IdCategory");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("Category", b =>
                 {
                     b.Property<int>("IdCategory")
@@ -39,6 +85,17 @@ namespace ApiEcommerce.Migrations
                     b.HasKey("IdCategory");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ApiEcommerce.Models.Product", b =>
+                {
+                    b.HasOne("Category", "category")
+                        .WithMany()
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("category");
                 });
 #pragma warning restore 612, 618
         }
