@@ -14,6 +14,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 // 3. AutoMapper
 builder.Services.AddAutoMapper(cfg => {
     cfg.AddProfile<CategoryProfile>();
+    cfg.AddProfile<ProductProfile>();
 });
 
 // 4. Controladores
