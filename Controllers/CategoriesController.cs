@@ -101,6 +101,32 @@ namespace ApiEcommerce.Controllers
             }
             return NoContent();
         }
+
+         //Metodo Eliminar
+        [HttpDelete("{IdCategory=int}", Name = "DeleteCategory")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteCategory(int IdCategory)
+        {
+            if (!_categoryRepository.CategoryExists(IdCategory))
+            {
+                return NotFound($"La categoria con el id{IdCategory} no existe");
+            }
+            var category = _categoryRepository.GetCategory(IdCategory);
+            if (category == null)
+            {
+                return NotFound($"La categoria con el id{IdCategory} no existe");
+            }
+            if(!_categoryRepository.DeleteCategory(category) )
+            {
+                ModelState.AddModelError("CustomError",$"Algo Salio mal al actualizar el registro{category.Name}");
+                return StatusCode(500,ModelState);
+            }
+            return NoContent();
+        }
     }
 
     
