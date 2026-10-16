@@ -98,7 +98,7 @@ public class ProductRepository : IProductRepository
         return _db.SaveChanges()>= 0;
     }
 
-    public ICollection<Product> SearchProduct(string name)
+    public ICollection<Product> SearchProducts(string name)
     {
         IQueryable<Product>  query = _db.Products;
         if (!string.IsNullOrEmpty(name))
