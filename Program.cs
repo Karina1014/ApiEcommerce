@@ -10,7 +10,7 @@ builder.Services.AddDbContext<AplicationDbContext>(options =>
 
 // 2. Registro del Repositorio (Inyección de dependencias)
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // 3. AutoMapper
 builder.Services.AddAutoMapper(cfg => {
     cfg.AddProfile<CategoryProfile>();
