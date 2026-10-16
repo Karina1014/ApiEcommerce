@@ -11,4 +11,5 @@ public class AplicationDbContext: DbContext {
                             //Va por convencion y en plural es la migracios
     public DbSet <Category> Categories { get; set; }
     public DbSet <Product> Products {get; set;}
+    public DbSet <User> Users {get; set;}
 }
