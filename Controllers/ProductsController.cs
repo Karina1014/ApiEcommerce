@@ -130,6 +130,39 @@ namespace ApiEcommerce.Controllers
       return Ok($"Se compro {quantity} {units} del producto '{name}'");
     }
 
+    //Actualizar el registro del producto
+    [HttpPut("{IdProduct:int}", Name = "UpdateProduct")]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult UpdateProduct(int IdProduct, [FromBody] UpdateProductDto updateProductDto)
+    {
+      if (updateProductDto == null)
+      {
+        return BadRequest(ModelState);
+      }
+      if (!_productRepository.ProductExists(IdProduct))
+      {
+        ModelState.AddModelError("CustomError", "El producto no existe");
+        return BadRequest(ModelState);
+      }
+      if (!_categoryRepository.CategoryExists(updateProductDto.IdCategory))
+      {
+        ModelState.AddModelError("CustomError", $"La categoría con el {updateProductDto.IdCategory} no existe");
+        return BadRequest(ModelState);
+      }
+      var product = _mapper.Map<Product>(updateProductDto);
+      product.IdProduct = IdProduct;
+      if (!_productRepository.UpdateProduct(product))
+      {
+        ModelState.AddModelError("CustomError", $"Algo salió mal al actualizar el registro {product.Name}");
+        return StatusCode(500, ModelState);
+      }
+      return NoContent();
+    }
+
 
     }
 }
